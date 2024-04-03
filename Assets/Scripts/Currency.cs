@@ -13,7 +13,7 @@ public class Currency : MonoBehaviour
     int mulitiplier = 1;
 
     [SerializeField]
-    [Min(1)]
+    [Min(0)]
     int goopPerSecond = 0;
 
     [SerializeField] UIText currencyText;
@@ -26,7 +26,7 @@ public class Currency : MonoBehaviour
         multiplierText.UpdateText(mulitiplier.ToString());
         goopPerSecondText.UpdateText(goopPerSecond.ToString());
 
-        InvokeRepeating("SpawnEnemy", 2f, 1f);
+        InvokeRepeating("IncreaseGoopPerSecond", 2f, 1f);
     }
 
     public int GoopCount
@@ -36,15 +36,16 @@ public class Currency : MonoBehaviour
                 return goopCount;
         }
     }
-    
+
     public void IncreaseGoop()
     {
         goopCount += 1 * mulitiplier;
         currencyText.UpdateText(goopCount.ToString());
     }
 
-    private void IncreaseGoodPerSecond()
+    private void IncreaseGoopPerSecond()
     {
-
+        goopCount += goopPerSecond;
+        currencyText.UpdateText(goopCount.ToString());
     }
 }
