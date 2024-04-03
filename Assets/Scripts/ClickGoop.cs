@@ -11,6 +11,6 @@ public class ClickGoop : MonoBehaviour
 
     void OnMouseDown() 
     {
-        currencyObject.IncreaseGoop(1);
+        currencyObject.IncreaseGoop();
     }
 }
