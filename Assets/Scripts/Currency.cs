@@ -8,11 +8,9 @@ public class Currency : MonoBehaviour
 {
     int goopCount = 0;
     
-    [SerializeField]
     [Min(1)]
-    int mulitiplier = 1;
+    int multiplier = 1;
 
-    [SerializeField]
     [Min(0)]
     int goopPerSecond = 0;
 
@@ -21,9 +19,9 @@ public class Currency : MonoBehaviour
     [SerializeField] UIText goopPerSecondText;
 
 
-    private void Awake() {
+    private void Start() {
         currencyText.UpdateText(goopCount.ToString());
-        multiplierText.UpdateText(mulitiplier.ToString());
+        multiplierText.UpdateText(multiplier.ToString());
         goopPerSecondText.UpdateText(goopPerSecond.ToString());
 
         InvokeRepeating("IncreaseGoopPerSecond", 2f, 1f);
@@ -35,17 +33,52 @@ public class Currency : MonoBehaviour
         {
                 return goopCount;
         }
+        set
+        {
+            goopCount = value;
+            goopCount = Mathf.Min(goopCount, 999999999);
+            currencyText.UpdateText(goopCount.ToString());
+        }
+    }
+
+    public int Multiplier
+    {
+        get
+        {
+                return multiplier;
+        }
+        set
+        {
+            multiplier = value;
+            multiplier = Mathf.Min(multiplier, 999999999);
+            multiplierText.UpdateText(multiplier.ToString());
+        }
+    }
+
+    public int GoopPerSecond
+    {
+        get
+        {
+                 
+                return goopPerSecond;
+        }
+        set
+        {
+            goopPerSecond = value;
+            goopPerSecond = Mathf.Min(goopPerSecond, 999999999);
+            goopPerSecondText.UpdateText(goopPerSecond.ToString());
+        }
     }
 
     public void IncreaseGoop()
     {
-        goopCount += 1 * mulitiplier;
+        GoopCount += 1 * Multiplier;
         currencyText.UpdateText(goopCount.ToString());
     }
 
     private void IncreaseGoopPerSecond()
     {
-        goopCount += goopPerSecond;
+        GoopCount += GoopPerSecond;
         currencyText.UpdateText(goopCount.ToString());
     }
 }
